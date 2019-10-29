@@ -25,6 +25,7 @@
   "devDependencies": {
     "babel-eslint": "^10.0.3",
     "jest": "^24.0.0",
+    "jest-junit": "^9.0.0",
     "nock": "^10.0.0",
     "nodemon": "^1.17.2",
     "smee-client": "^1.0.2",
@@ -46,6 +47,7 @@
     ]
   },
   "jest": {
-    "testEnvironment": "node"
+    "testEnvironment": "node",
+    "reporters": [ "default", "jest-junit"]
   }
 }
