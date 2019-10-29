@@ -1,0 +1,55 @@
+# Version 1.0.0
+version: 2.1
+
+##########################
+# Common Definitions
+##########################
+aliases:
+  - &project_dir "~/circleci-trigger-bot"
+
+executors:
+  node-exec:
+    docker:
+      - image: circleci/node:12.13.0
+    working_directory: *project_dir
+    resource_class: medium
+
+##########################
+# Workflow Definitions 
+##########################
+workflow:
+  version: 2
+  build:
+    jobs:
+      - test
+
+##########################
+# Workflow Definitions 
+##########################
+jobs:
+  test:
+    executor: node-exec
+    steps:
+      - checkout
+      - restore_cache:
+          keys:
+            - v1-dependencies-{{ checksum "package.json" }}
+            - v1-dependencies-
+      - run:
+          name: Install deps
+          command: yarn
+      - save_cache:
+          key: v1-dependencies-{{ checksum "package.json" }}
+          paths:
+            - node_modules
+      - run:
+          name: Lint
+          command: yarn lint
+      - run:
+          name: Test
+          command: yarn test
+      - run:
+          name: Setup test results folder
+          command: mkdir -p jest && mv junit.xml jest
+      - store_test_results:
+          path: ./jest
