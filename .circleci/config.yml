@@ -19,7 +19,7 @@ executors:
 ##########################
 workflow:
   version: 2
-  build:
+  build-test:
     jobs:
       - test
 
