@@ -47,9 +47,8 @@ jobs:
           command: yarn lint
       - run:
           name: Test
-          command: yarn test
-      - run:
-          name: Setup test results folder
-          command: mkdir -p jest && mv junit.xml jest
+          command: mkdir -p test-results/jest && yarn test
+          environment:
+          JEST_JUNIT_OUTPUT_DIR: ./test-results/jest
       - store_test_results:
-          path: ./jest
+          path: ./test-results
