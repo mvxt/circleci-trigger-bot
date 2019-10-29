@@ -24,7 +24,7 @@ workflows:
       - test
 
 ##########################
-# Workflow Definitions 
+# Job Definitions 
 ##########################
 jobs:
   test:

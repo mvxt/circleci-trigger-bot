@@ -3,13 +3,13 @@
   "issue": {
     "number": 1,
     "user": {
-      "login": "hiimbex"
+      "login": "mvxt"
     }
   },
   "repository": {
-    "name": "testing-things",
+    "name": "circleci-trigger-bot",
     "owner": {
-      "login": "hiimbex"
+      "login": "mvxt"
     }
   }
 }
