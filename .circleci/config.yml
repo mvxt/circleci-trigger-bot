@@ -49,6 +49,6 @@ jobs:
           name: Test
           command: mkdir -p test-results/jest && yarn test
           environment:
-          JEST_JUNIT_OUTPUT_DIR: ./test-results/jest
+            JEST_JUNIT_OUTPUT_DIR: "test-results/jest"
       - store_test_results:
           path: ./test-results
