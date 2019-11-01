@@ -10,15 +10,15 @@ module.exports = app => {
     return context.github.issues.createComment(issueComment)
   })
 
-  // Trigger a build based on a PR comment
-  // PRs are treated like Issues
-  // See https://developer.github.com/v3/guides/working-with-comments/#pull-request-comments
+  // PR comment, react to it
   app.on('issue_comment.created', async context => {
-    // PRs considered issues, check for 'pull_request' key in payload
-    if (context.payload.hasOwnProperty('pull_request')) {
-      const prComment = context.payload.comment.body
+    // PRs treated like Issues, check for 'pull_request' key in payload
+    // See https://developer.github.com/v3/guides/working-with-comments/#pull-request-comments
+    const data = context.payload
+    if (data.hasOwnProperty('pull_request')) {
+      // If comment contains "circleci run", parse the comment
       if (prComment.match(/^circleci run.*/)) {
-        return pr.runBuildFromPRComment(context)
+        return pr.parsePRComment(context)
       }
     }
   })
