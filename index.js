@@ -5,27 +5,19 @@ const pr = require('./pull_request')
  * @param {import('probot').Application} app
  */
 module.exports = app => {
+  // Opened issue, react to it
   app.on('issues.opened', async context => {
-    const issueComment = context.issue({ body: 'Thanks for opening this issue!' })
+    const issueComment = context.issue({ body: 'Thanks for opening this issue! We will check this and get back to you ASAP.' })
     return context.github.issues.createComment(issueComment)
   })
 
-  // Trigger a build based on a PR comment
-  // PRs are treated like Issues
-  // See https://developer.github.com/v3/guides/working-with-comments/#pull-request-comments
+  // PR comment, react to it
   app.on('issue_comment.created', async context => {
-    // PRs considered issues, check for 'pull_request' key in payload
-    if (context.payload.hasOwnProperty('pull_request')) {
-      const prComment = context.payload.comment.body
-      if (prComment.match(/^circleci run.*/)) {
-        return pr.runBuildFromPRComment(context)
-      }
+    // PRs treated like Issues, check for 'pull_request' key in payload
+    // See https://developer.github.com/v3/guides/working-with-comments/#pull-request-comments
+    const data = context.payload
+    if (data.issue.hasOwnProperty('pull_request')) {
+      return pr.parsePRComment(context)
     }
   })
-
-  // For more information on building apps:
-  // https://probot.github.io/docs/
-
-  // To get your app running against GitHub, see:
-  // https://probot.github.io/docs/development/
 }
