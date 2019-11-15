@@ -4,7 +4,7 @@ const myProbotApp = require('..')
 const { Probot } = require('probot')
 // Requiring our fixtures
 const payload = require('./fixtures/issues.opened')
-const issueCreatedBody = { body: 'Thanks for opening this issue!' }
+const issueCreatedBody = { body: 'Thanks for opening this issue! We will check this and get back to you ASAP.' }
 
 nock.disableNetConnect()
 
