@@ -1,7 +1,7 @@
 const axios = require('axios')
 
 // Parse the PR Comment
-function parsePRComment(context) {
+function parsePRComment (context) {
   const command = context.payload.comment.body
 
   // Check command
@@ -11,7 +11,7 @@ function parsePRComment(context) {
 }
 
 // Execute pipeline w/ params
-async function triggerPipeline(context) {
+async function triggerPipeline (context) {
   const payload = context.payload
   const command = payload.comment.body
   const fullRepo = payload.repository.full_name
@@ -24,7 +24,7 @@ async function triggerPipeline(context) {
 
   // Take PARAM=VALUE and turn into JS object {key: value} to pass to Axios
   for (var i = 0; i < tokens.length; i++) {
-    if (tokens[i].match(/.*=.*/)){
+    if (tokens[i].match(/.*=.*/)) {
       const args = tokens[i].split('=')
       params[args[0]] = args[1]
       numArgs++
@@ -33,7 +33,7 @@ async function triggerPipeline(context) {
 
   // If there aren't any params, don't pass in "params" body
   if (numArgs > 0) {
-    sendBody["parameters"] = params
+    sendBody['parameters'] = params
   }
 
   // Get PR number
@@ -53,7 +53,7 @@ async function triggerPipeline(context) {
 
   // Parse that PR for head.ref to get the branch name of this PR
   const currentBranch = prInfo.data.head.ref
-  sendBody["branch"] = currentBranch
+  sendBody['branch'] = currentBranch
 
   console.log(url)
   axios({
@@ -68,23 +68,23 @@ async function triggerPipeline(context) {
     url: url,
     data: sendBody
   })
-  .then(function (response) {
+    .then(function (response) {
     // Post comment indicating either success or failure to execute action
-    const code = response.status
-    var outputBody = response.data
-    outputBody["status_code"] = code
-    const info = "```\n" + JSON.stringify(outputBody, null, 2) + "\n```"
-    output = context.issue({ body: info })
-    context.github.issues.createComment(output)
-  })
-  .catch(function (error) {
-    if (error.response) {
-      const code = error.response.status
-      const message = `error triggering a build on circleci:\n  code: ${code}\n  message: ${error.response.data}`
-      const output = context.issue({ body: message })
+      const code = response.status
+      var outputBody = response.data
+      outputBody['status_code'] = code
+      const info = '```\n' + JSON.stringify(outputBody, null, 2) + '\n```'
+      const output = context.issue({ body: info })
       context.github.issues.createComment(output)
-    }
-  });
+    })
+    .catch(function (error) {
+      if (error.response) {
+        const code = error.response.status
+        const message = `error triggering a build on circleci:\n  code: ${code}\n  message: ${error.response.data}`
+        const output = context.issue({ body: message })
+        context.github.issues.createComment(output)
+      }
+    })
 }
 
 module.exports.parsePRComment = parsePRComment

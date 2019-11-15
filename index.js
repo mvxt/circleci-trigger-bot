@@ -17,7 +17,6 @@ module.exports = app => {
     // See https://developer.github.com/v3/guides/working-with-comments/#pull-request-comments
     const data = context.payload
     if (data.issue.hasOwnProperty('pull_request')) {
-      const comment = data.comment.body
       return pr.parsePRComment(context)
     }
   })
