@@ -1,4 +1,4 @@
-# circleci-trigger-bot
+# circleci-trigger-bot [![CircleCI](https://circleci.com/gh/mvxt/circleci-trigger-bot/tree/master.svg?style=svg&circle-token=5f63bec7e00e0dede15dffd1c84fc12bff6cdb86)](https://circleci.com/gh/mvxt/circleci-trigger-bot/tree/master)
 
 > A GitHub App built with [Probot](https://github.com/probot/probot) that implements various interactions between GitHub and CircleCI
 
