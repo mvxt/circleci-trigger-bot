@@ -51,7 +51,7 @@ workflows:
       - test-job:
           requires: build-job
   deploy:
-    when: << pipeline.parameters.deploy >>
+    when: << pipeline.parameters.run_deploy >>
     jobs:
       - deploy-job
 ```
