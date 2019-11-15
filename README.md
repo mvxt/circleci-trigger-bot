@@ -21,15 +21,14 @@ This seems insecure, but the configuration of this app in `app.yml` is set to "I
 6. Make a unique name for your Github App and install the application in your org for whichever repositories you'd like to run this on.
 
 ## Current Functionality
-### Trigger Builds via PR Comments
-#### Pipeline Trigger
+### Trigger Pipeline via PR Comment
 Triggers a pipeline with the specified parameters. Leave a comment in the following format on a PR:
 
 `circleci run pipeline [PARAM_1=VALUE_1 PARAM_2=VALUE_2...]`
 
 **Note:** Triggering a pipeline will trigger **all workflows** by default. To limit which workflows run and when, you'll want to configure default parameters. See example below.
 
-##### Example
+#### Example
 Let's say I have two workflows: `build-test` and `deploy`. I want my `build-test` workflow to always run on changes to code by default, but my `deploy` should only run on a manual trigger. I would set that up as follows:
 
 ```yaml
