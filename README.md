@@ -14,7 +14,7 @@ Since Github Apps cannot currently store secrets, you'll have to hardcode your C
 This seems insecure, but the configuration of this app in `app.yml` is set to "Internal-only" by default, meaning other users on Github cannot install the app or see its source code.
 
 1. Clone or download this repository.
-2. Search the code base for REPLACE_TOKEN_HERE and replace it with your [CircleCI API Token](https://circleci.com/docs/2.0/managing-api-tokens/). Not that this token must be a personal token and **not** a project-based token.
+2. Search the code base for REPLACE_TOKEN_HERE and replace it with your [CircleCI API Token](https://circleci.com/docs/2.0/managing-api-tokens/). Note that this token must be a personal token and **not** a project-based token.
 3. Install dependencies with `yarn` or `npm i`
 4. Start the app with `yarn dev` or `npm run dev`, which will start your app and start a web server on http://localhost:3000
 5. Go to that page in your browser and click the button to register GitHub App
